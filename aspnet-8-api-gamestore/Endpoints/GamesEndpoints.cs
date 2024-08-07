@@ -40,7 +40,8 @@ public static class GamesEndpoints
 
     public static RouteGroupBuilder MapGamesEndpoints(this WebApplication app)
     {
-        var group = app.MapGroup("games");
+        //.WithPV  makes data validation from DTO to be effective
+        var group = app.MapGroup("games").WithParameterValidation();
 
         group.MapGet("/", () => games);
 
@@ -82,6 +83,7 @@ public static class GamesEndpoints
                 );
             }
         );
+        //
         group.MapPut(
             "/{id}",
             (int id, UpdateGameDto updatedGame) =>
