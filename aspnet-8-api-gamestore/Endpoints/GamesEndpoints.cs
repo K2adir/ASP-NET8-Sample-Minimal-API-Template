@@ -1,4 +1,6 @@
+using aspnet_8_api_gamestore.Data;
 using aspnet_8_api_gamestore.Dtos;
+using aspnet_8_api_gamestore.Entities;
 
 namespace aspnet_8_api_gamestore.Endpoints;
 
@@ -64,22 +66,33 @@ public static class GamesEndpoints
         // Post /games
         group.MapPost(
             "/",
-            (CreateGameDto newGame) =>
+            (CreateGameDto newGame, GameStoreContext dbContext) =>
             {
-                GameDto game =
+                Game game =
+                    new()
+                    { //
+                        Name = newGame.Name,
+                        Genre = dbContext.Genres.Find(newGame.GenreId),
+                        GenreId = newGame.GenreId,
+                        Price = newGame.Price,
+                        ReleaseDate = newGame.ReleaseDate
+                    };
+                dbContext.Games.Add(game);
+                dbContext.SaveChanges();
+
+                GameDto gameDto =
                     new(
-                        games.Count + 1, //
-                        newGame.Name,
-                        newGame.Genre,
-                        newGame.Price,
-                        newGame.ReleaseDate
+                        game.Id, //`
+                        game.Name,
+                        game.Genre!.Name,
+                        game.Price,
+                        game.ReleaseDate
                     );
-                games.Add(game);
 
                 return Results.CreatedAtRoute( //
                     GetGameEndpointName,
                     new { id = game.Id },
-                    game
+                    gameDto
                 );
             }
         );
@@ -102,6 +115,7 @@ public static class GamesEndpoints
                     updatedGame.Price,
                     updatedGame.ReleaseDate
                 );
+
                 return Results.NoContent();
             }
         );
