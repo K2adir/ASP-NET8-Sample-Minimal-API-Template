@@ -3,28 +3,27 @@ GET http://localhost:5057/games
 ###
 GET http://localhost:5057/games/1
 
-
 ###
 POST http://localhost:5057/games
 Content-Type: application/json
 
 {
-    "name": "New test", 
-    "genreId": 1,
-    "price": 19.33,
-    "releaseDate": "2023-10-10"
+    "name": "Final Fantasy ZXC",
+    "genreId": 2,
+    "price": 59.99,
+    "releaseDate": "2010-09-30"
 }
 
 ###
-PUT http://localhost:5057/games/5
+PUT http://localhost:5057/games/3
 Content-Type: application/json
 
 {
-    "name": "PUTPUT", 
-    "genreId": "ww",
-    "price": 19.33,
-    "releaseDate": "2023-10-10"
+    "name": "Street Fighter XI Turbo",
+    "genreId": 1,
+    "price": 19.99,
+    "releaseDate": "1991-02-01"
 }
 
 ###
-DELETE http://localhost:5057/games/1
+DELETE http://localhost:5057/games/3
