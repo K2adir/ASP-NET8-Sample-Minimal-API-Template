@@ -1,5 +1,6 @@
 GET http://localhost:5057/games
-
+###
+GET http://localhost:5057/genres
 ###
 GET http://localhost:5057/games/1
 

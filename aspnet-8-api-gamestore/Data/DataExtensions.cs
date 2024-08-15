@@ -5,6 +5,7 @@ namespace aspnet_8_api_gamestore.Data;
 
 public static class DataExtensions
 {
+    // auto database creating / migration and update
     public static async Task MigrateDbAsync(this WebApplication app)
     {
         using var scope = app.Services.CreateScope();
